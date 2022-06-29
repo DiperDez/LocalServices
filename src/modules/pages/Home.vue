@@ -23,8 +23,9 @@
     width: 100%;
     height: 100vh;
     background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(../../../src/assets/home1.jpg);
-    background-position: top;
+    background-position: center;
     background-size: cover;
+    background-repeat: no-repeat;
     background-attachment: fixed;
     position: relative;
   }

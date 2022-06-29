@@ -1,6 +1,7 @@
-<template>
+<template v-on="resize">
   <div class="container-fluid m-0 p-0">
     <Navbar/>
+    
     <routerView/>
   </div>
 </template>
@@ -100,7 +101,9 @@ export default {
     color: var(--white); 
     transition: all ease-out .5s;
     transform: translateY(-2px);
-    box-shadow: 0px 0px 4px var(--primary);
+    box-shadow: 5px 5px 3px #0077fee3;
   }
+
   
+
 </style>

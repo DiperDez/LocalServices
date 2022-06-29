@@ -1,10 +1,10 @@
 <template>
-    <div class="col-12 menu d-flex justify-content-between align-items-center flex-wrap px-4 shadow-sm position-fixed">
-        <div class="col-auto menu-search p-0 m-0 h-100 d-flex align-items-center">
+    <div class="col-12 menu d-flex justify-content-between align-items-center flex-wrap px-2 px-lg-4 shadow-sm position-fixed">
+        <div class="col-auto col-lg-4 menu-search p-0 m-0 h-100 d-flex align-items-center">
             
-            <img src="../../../../src/assets/Logo/LocalServicesLogoBlack.png" alt="Logo">
+            <img src="../../../../src/assets/Logo/LocalServicesLogoBlack.png" alt="Logo" class="logo h-100 py-2">
 
-            <div class="col-12 input-group h-50 ms-4 d-none d-md-flex">
+            <div class="col-12 input-group h-auto ms-4 d-none d-md-flex shadow-sm">
                  <input type="text" placeholder="Busca un servicio dentro de tu ubicación..." class="form-control rounded-0 shadow-none ps-3">
                  <svg xmlns="http://www.w3.org/2000/svg" class="h-100 w-6 text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -12,28 +12,86 @@
             </div>
 
         </div>
-
-        <div class="menu-icon d-lg-none">
+        <div class="menu-icon" @click="pressIcon" v-show="windowWidth <= 992">
             <span class="menu-span"></span>
             <span class="menu-span"></span>
             <span class="menu-span"></span>
         </div>      
-
-        <div class="col-auto menu-items d-none d-lg-flex align-items-center flex-wrap gap-5 gap-md-3 p-0 m-0 ">
+        <div class="col-auto d-none d-lg-flex align-items-center flex-wrap gap-5 gap-md-3 p-0 m-0" id="menu-items">
             <router-link class="text-decoration-none router-link" to="/">Inicio</router-link>
             <router-link class="text-decoration-none router-link" to="/services">Servicios</router-link>
             <router-link class="text-decoration-none router-link" to="/aboutUs">Acerca de</router-link>
             <router-link class="text-decoration-none px-3 py-1 btn btn-sm btn-primary-blue rounded-0 rounded-1" to="/register">Registrarse</router-link>
         </div>
+       
     </div>
 </template>
 
-<style scoped>
+<script>
+export default {
+    data(){
+        return{
+            windowWidth: document.documentElement.clientWidth,
+        }
+    },
+    mounted(){
+        window.addEventListener('resize', this.getDimensions)
+    },
+    unmounted(){
+        window.removeEventListener('resize', this.getDimensions)
+    },
+    methods: {
+        
+        getDimensions(){
+            const menuIcon = document.querySelector('.menu-icon'),
+                  container = document.querySelector('body')
+
+            this.windowWidth = document.documentElement.clientWidth
+
+            if(this.windowWidth >= 992){
+                if(menuIcon.classList.contains('active')){
+                    container.classList.remove('active-container')
+                    menuIcon.classList.remove('active')
+                }
+            }
+        },
+        pressIcon(){
+            
+            const menuIcon = document.querySelector('.menu-icon'),
+                  container = document.querySelector('body')
+
+            menuIcon.classList.toggle('active')
+            container.classList.toggle('active-container')   
+
+        }
+    }
+}
+</script>
+
+<style>
+    img{
+        width: auto;
+        height: 100%;
+        padding: 10px 0px;
+    }
+
+    input{
+        position: relative;
+    }
+
+    svg{
+        right: 10px;
+        position: absolute;
+        padding: 5px;
+        z-index: 3;
+        width: 30px;
+    }
+
     .menu{
         width: 100%;
         height: 70px;
         background-color: white;
-        z-index: 100;
+        z-index: 4;
     }
 
     .menu-icon{
@@ -51,42 +109,43 @@
         width: 35px;
         height: 4px;
         border-radius: 3px;
-        background-color: var(--primary);
+        background-color: rgba(0,0,0,0.6);
         transition: all ease .4s;
     }
 
-    .menu-icon:hover .menu-span:nth-child(1){
+    .active .menu-span:nth-child(1){
         transform: rotate(135deg) translate(9px, -8px);
     }
 
-    .menu-icon:hover .menu-span:nth-child(2){
+    .active .menu-span:nth-child(2){
        opacity: 0;
        transform: scale(0);
     }
 
-    .menu-icon:hover .menu-span:nth-child(3){
+    .active .menu-span:nth-child(3){
         transform: rotate(-135deg) translate(9px, 8px);
     }
 
-    
-
-
-    img{
-        width: auto;
-        height: 100%;
-        padding: 10px 0px;
+    .menu-items{
+        background-color: var(--primary);
     }
 
-    input{
-        position: relative;
+    .active-container{
+      position: relative;
     }
 
-    svg{
-        right: 10px;
+    .active-container::after{
+        content: "";
         position: absolute;
-        padding: 5px;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: rgba(0, 0, 0, 0.4);
         z-index: 3;
-        width: 30px;
+        transition: all ease .4s;
     }
 
     .router-link{
