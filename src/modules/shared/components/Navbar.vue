@@ -1,42 +1,29 @@
 <template>
-    <div class="col-12 menu d-flex justify-content-between align-items-center gap-4 px-5 shadow-sm position-fixed flex-wrap">
-
-        <div class="menu-logo h-100">
-            <img src="../../../../src/assets/Logo/LocalServicesLogoBlack.png" alt="Logo">
-        </div>
-
-        <div class="menu-button-container h-50 d-flex align-items-center">
-            <div class="menu-burger">
-                <span class="menu-span-1"></span>
-                <span class="menu-span-2"></span>
-                <span class="menu-span-3"></span>
-            </div>
-            <div class="menu-button-items invisible">
-                <router-link class="text-decoration-none router-link" to="/">Inicio</router-link>
-                <router-link class="text-decoration-none router-link" to="/services">Servicios</router-link>
-                <router-link class="text-decoration-none router-link" to="/aboutUs">Acerca de</router-link>
-                <router-link class="text-decoration-none btn btn-sm px-4 py-2 btn-primary-blue rounded-0 text-white rounded-1" to="/register">Registrarse</router-link>
-            </div>
-        </div>
-
-        <div class="menu-search col-4 col-md-7 col-xl-4 p-0 m-0 h-100 d-flex align-items-center">
+    <div class="col-12 menu d-flex justify-content-between align-items-center flex-wrap px-4 shadow-sm position-fixed">
+        <div class="col-auto menu-search p-0 m-0 h-100 d-flex align-items-center">
             
             <img src="../../../../src/assets/Logo/LocalServicesLogoBlack.png" alt="Logo">
 
-            <div class="input-group h-50 ms-4">
-                 <input type="text" placeholder="Search" class="form-control rounded-0 shadow-none ps-3">
-                 <svg xmlns="http://www.w3.org/2000/svg" class="h-100 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <div class="col-12 input-group h-50 ms-4 d-none d-md-flex">
+                 <input type="text" placeholder="Busca un servicio dentro de tu ubicación..." class="form-control rounded-0 shadow-none ps-3">
+                 <svg xmlns="http://www.w3.org/2000/svg" class="h-100 w-6 text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
             </div>
 
         </div>
 
-        <div class="menu-items col-lg-12 d-flex align-items-center flex-wrap gap-5 gap-md-3 p-0 m-0">
+        <div class="menu-icon d-lg-none">
+            <span class="menu-span"></span>
+            <span class="menu-span"></span>
+            <span class="menu-span"></span>
+        </div>      
+
+        <div class="col-auto menu-items d-none d-lg-flex align-items-center flex-wrap gap-5 gap-md-3 p-0 m-0 ">
             <router-link class="text-decoration-none router-link" to="/">Inicio</router-link>
             <router-link class="text-decoration-none router-link" to="/services">Servicios</router-link>
             <router-link class="text-decoration-none router-link" to="/aboutUs">Acerca de</router-link>
-            <router-link class="text-decoration-none btn btn-sm px-4 py-2 btn-primary-blue rounded-0 text-white rounded-1" to="/register">Registrarse</router-link>
+            <router-link class="text-decoration-none px-3 py-1 btn btn-sm btn-primary-blue rounded-0 rounded-1" to="/register">Registrarse</router-link>
         </div>
     </div>
 </template>
@@ -49,44 +36,37 @@
         z-index: 100;
     }
 
-    .menu-burger{
+    .menu-icon{
         width: 50px;
         height: 50px;
-        position: relative;
+        border-radius: 3px;
         display: flex;
         justify-content: center;
         align-items: center;
-        border-radius: 3px;
-        transition: all ease-in .4s;
-        cursor: pointer;
+        flex-direction: column;
+        gap: 8px;
     }
 
-    .menu-span-1,
-    .menu-span-2,
-    .menu-span-3{
-        position: absolute;
-        width: 80%;
+    .menu-span{
+        width: 35px;
         height: 4px;
-        background-color: var(--dark);
-        transition: all ease-in .4s;
-        border-radius: 8px;
-    }    
-
-    .menu-span-2{top: 8px}
-    .menu-span-3{bottom: 8px}
-
-    .menu-burger:hover .menu-span-1{
-        opacity: 0;
+        border-radius: 3px;
+        background-color: var(--primary);
+        transition: all ease .4s;
     }
 
-    .menu-burger:hover .menu-span-2{
-        transform: rotate(47deg) translate(10px, 10px);
+    .menu-icon:hover .menu-span:nth-child(1){
+        transform: rotate(135deg) translate(9px, -8px);
     }
 
-    .menu-burger:hover .menu-span-3{
-        transform: rotate(-47deg) translate(10px, -10px);
+    .menu-icon:hover .menu-span:nth-child(2){
+       opacity: 0;
+       transform: scale(0);
     }
 
+    .menu-icon:hover .menu-span:nth-child(3){
+        transform: rotate(-135deg) translate(9px, 8px);
+    }
 
     
 
@@ -106,6 +86,7 @@
         position: absolute;
         padding: 5px;
         z-index: 3;
+        width: 30px;
     }
 
     .router-link{
@@ -145,6 +126,7 @@
         color: var(--dark);
     }
 
+
     .router-link-exact-active::before{
         width: 50%;
         left: 0;
@@ -152,26 +134,5 @@
         margin: 0 auto;
     }
 
-    .btn-primary-blue{
-        font-family: var(--fontPrimary);
-        font-weight: var(--fontBold);
-        background-color: var(--primary);
-    }
 
-    @media (max-width: 992px){
-        .menu-items,
-        .menu-search{
-            display: none;
-            visibility: hidden;
-        }
-    }
-
-    @media (min-width: 993px){
-        .menu-items,
-        .menu-search{
-            display: none;
-            visibility: visible;
-        }
-    }
-    
 </style>

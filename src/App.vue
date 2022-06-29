@@ -28,6 +28,7 @@ export default {
     --shadow: rgba(0,0,0,0.2);
     --secondary: #F9F9F9;
     --fontPrimary: 'Roboto Condensed', sans-serif;
+    --fontSecondary: 'Comfortaa', cursive;
     --fontLight: 300;
     --fontRegular: 400;
     --fontBold: 700;
@@ -79,7 +80,27 @@ export default {
     background: #d4d4d4;
   }
 
+  .form-control{
+    font-family: var(--fontSecondary);
+    font-weight: var(--fontLight);
+  }
 
+  /* Buttons */
+  .btn-primary-blue{
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    font-weight: 400;
+    font-size: 16px;
+    transition: all ease-in .5s;
+  }
 
+  .btn-primary-blue:hover{
+    border: 2px solid var(--primary);
+    background-color: var(--primary);
+    color: var(--white); 
+    transition: all ease-out .5s;
+    transform: translateY(-2px);
+    box-shadow: 0px 0px 4px var(--primary);
+  }
   
 </style>
