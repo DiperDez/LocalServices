@@ -2,7 +2,7 @@
   <div class="  ">
     <section class="col-12 section-services d-flex flex-column justify-content-start align-items-center">
       <div class="col-12 col-md-10 col-lg-7 h-100 px-2 d-flex flex-column justify-content-center align-items-center flex-wrap">
-         <h1 class="text-dark text-uppercase fw-light bg-white p-4 rounded-1">Encuentra los mejores servicos para ti</h1>
+         <h1 class="text-dark text-uppercase fw-light bg-white p-4 rounded-1">Acerca de LocalServices</h1>
       </div>
     </section>
   </div>
@@ -17,8 +17,8 @@ export default {
 <style>
   .section-services{
     height: 50vh;
-    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(../../../src/assets/backgrounds/services.jpg);
-    background-position: bottom center;
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(../../../src/assets/backgrounds/aboutUs.jpg);
+    background-position: bottom right;
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;

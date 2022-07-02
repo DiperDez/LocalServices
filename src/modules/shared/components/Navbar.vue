@@ -1,27 +1,30 @@
 <template>
-    <div class="col-12 menu d-flex justify-content-between align-items-center flex-wrap px-2 px-lg-4 shadow-sm position-fixed">
-        <div class="col-auto col-lg-4 menu-search p-0 m-0 h-100 d-flex align-items-center">
+    <div class="col-12 menu d-flex justify-content-between align-items-center flex-wrap px-2 px-md-3">
+        <div class="col-auto col-lg-5 col-xl-3 menu-search p-0 m-0 h-100 d-flex align-items-center px-1 px-sm-0">
             
-            <img src="../../../../src/assets/Logo/LocalServicesLogoBlack.png" alt="Logo" class="logo h-100 py-2">
+            <img src="../../../../src/assets/Logo/LocalServicesLogoWhite.png" alt="Logo" class="logo py-2 logo-dark">
+            
 
-            <div class="col-12 input-group h-auto ms-4 d-none d-md-flex shadow-sm">
-                 <input type="text" placeholder="Busca un servicio dentro de tu ubicación..." class="form-control rounded-0 shadow-none ps-3">
-                 <svg xmlns="http://www.w3.org/2000/svg" class="h-100 w-6 text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <div class="col-12 input-group input-search h-auto ms-md-5 d-none d-md-flex shadow-sm">
+                 <input type="text" placeholder="Busca un servicio" class="form-control rounded-0 shadow-none ps-3">
+                 <svg xmlns="http://www.w3.org/2000/svg" class="h-100 w-6 text-secondary search-svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
             </div>
 
         </div>
+        
         <div class="menu-icon" @click="pressIcon" v-show="windowWidth <= 992">
             <span class="menu-span"></span>
             <span class="menu-span"></span>
             <span class="menu-span"></span>
-        </div>      
-        <div class="col-auto d-none d-lg-flex align-items-center flex-wrap gap-5 gap-md-3 p-0 m-0" id="menu-items">
-            <router-link class="text-decoration-none router-link" to="/">Inicio</router-link>
-            <router-link class="text-decoration-none router-link" to="/services">Servicios</router-link>
-            <router-link class="text-decoration-none router-link" to="/aboutUs">Acerca de</router-link>
-            <router-link class="text-decoration-none px-3 py-1 btn btn-sm btn-primary-blue rounded-0 rounded-1" to="/register">Registrarse</router-link>
+        </div>     
+
+        <div class="col-auto d-none d-lg-flex align-items-center flex-wrap p-0 m-0 gap-4 gap-xl-5" id="menu-items">
+            <router-link class="text-decoration-none router-link router-link-white" to="/">Inicio</router-link>
+            <router-link class="text-decoration-none router-link router-link-white" to="/servicios">Servicios</router-link>
+            <router-link class="text-decoration-none router-link router-link-white" to="/acercaDe">Acerca de</router-link>
+            <router-link class="text-decoration-none px-3 py-1 btn btn-sm btn-primary-blue rounded-0 rounded-1 router-link router-link-white" to="/registro">Registrarse</router-link>
         </div>
        
     </div>
@@ -32,19 +35,22 @@ export default {
     data(){
         return{
             windowWidth: document.documentElement.clientWidth,
+            windowScroll: window.scrollY
         }
     },
     mounted(){
         window.addEventListener('resize', this.getDimensions)
+        window.addEventListener('scroll', this.getPositionY)
     },
     unmounted(){
         window.removeEventListener('resize', this.getDimensions)
+        window.removeEventListener('scroll', this.getPositionY)
     },
     methods: {
         
         getDimensions(){
             const menuIcon = document.querySelector('.menu-icon'),
-                  container = document.querySelector('body')
+                  container = document.querySelector('.routerView')
 
             this.windowWidth = document.documentElement.clientWidth
 
@@ -55,43 +61,102 @@ export default {
                 }
             }
         },
+        getPositionY(){
+            this.windowScroll = window.scrollY
+            const menu = document.querySelector('.menu'),
+                  menuLink = document.querySelectorAll('.router-link')
+
+            if(this.windowScroll >= 50){
+                menu.classList.add('menu-scroll', 'shadow-sm')
+                
+
+                for(let i = 0; i < menuLink.length; i++){
+                    menuLink[i].classList.remove('router-link-white') 
+                    menuLink[i].classList.add('router-link-dark')
+                }
+
+            }else{
+                menu.classList.remove('menu-scroll')
+                menu.classList.remove('shadow-sm')
+
+                for(let i = 0; i < menuLink.length; i++){
+                    menuLink[i].classList.remove('router-link-dark') 
+                    menuLink[i].classList.add('router-link-white')
+                }
+            }
+
+        },
         pressIcon(){
             
             const menuIcon = document.querySelector('.menu-icon'),
-                  container = document.querySelector('body')
+                  container = document.querySelector('.routerView')
 
             menuIcon.classList.toggle('active')
             container.classList.toggle('active-container')   
 
         }
+
     }
 }
 </script>
 
 <style>
-    img{
-        width: auto;
-        height: 100%;
-        padding: 10px 0px;
-    }
 
     input{
         position: relative;
     }
 
-    svg{
-        right: 10px;
+    .logo{
+        height: 90%;
+    }
+
+    .search-svg{
         position: absolute;
+        right: 10px;
         padding: 5px;
         z-index: 3;
         width: 30px;
     }
 
+    .icon-left{
+        right: 0;
+        left: 10px;
+    }
+
     .menu{
         width: 100%;
         height: 70px;
+        z-index: 1000;
+        background-color: transparent;
+        transition: all ease .8s;
+    }
+
+    .menu .menu-span{
         background-color: white;
-        z-index: 4;
+    }
+
+    .menu .input-search,
+    .menu .menu-dark{
+        opacity: 0;
+        transition: all ease .8s;
+    }
+    
+    .menu-scroll{
+        width: 100%;
+        height: 70px;
+        z-index: 1000;
+        background-color: white;
+        transition: all ease .8s;
+    }
+
+    .menu-scroll .menu-span{
+        background-color: black;
+    }
+
+    .menu-scroll .input-search,
+    .menu .menu-white{
+        opacity: 1;
+        transition: all ease .8s;
     }
 
     .menu-icon{
@@ -109,7 +174,6 @@ export default {
         width: 35px;
         height: 4px;
         border-radius: 3px;
-        background-color: rgba(0,0,0,0.6);
         transition: all ease .4s;
     }
 
@@ -124,10 +188,6 @@ export default {
 
     .active .menu-span:nth-child(3){
         transform: rotate(-135deg) translate(9px, 8px);
-    }
-
-    .menu-items{
-        background-color: var(--primary);
     }
 
     .active-container{
@@ -148,15 +208,25 @@ export default {
         transition: all ease .4s;
     }
 
-    .router-link{
-        color: var(--dark-50);
+    .router-link-white,
+    .router-link-dark{
         position: relative;
         transition: all ease-in .6s;
         font-family: 'Roboto Condensed', sans-serif;
-        font-weight: 300;
+        font-weight: var(--fontLights);
+        font-size: 18px;
     }
 
-    .router-link::before{
+    .router-link-white{ 
+        color: var(--white-50); 
+    }
+    
+    .router-link-dark{
+        color: var(--dark-50);
+    }
+
+    .router-link-white::before,
+    .router-link-dark::before{
         content: "";
         position: absolute;
         width: 0%;
@@ -164,24 +234,49 @@ export default {
         left: 50%;
         right: 50%;
         bottom: -5px;
-        background: var(--dark);
         border-radius: 10px;
         transition: all ease-in .4s;
     }
 
-    .router-link:hover::before{
+    .router-link-white::before{ 
+        background: var(--white);
+    }
+
+    .router-link-dark::before{
+        background: var(--dark);
+    }
+
+    .router-link-white:hover::before,
+    .router-link-dark:hover::before{
         width: 100%;
         left: 0;
         right: 0;
         transition: all ease-out .4s;
     }
 
-    .router-link:hover{
-        color: var(--dark);
+    .router-link-white:last-child:hover::before,
+    .router-link-dark:last-child:hover::before{
+        width: 0;
+    }
+        
+    .router-link-white:hover,
+    .router-link-dark:hover{
         transition: all ease-out .4s;
     }
 
-    .router-link-exact-active{
+    .router-link-white:hover{
+        color: var(--white);
+    }
+
+    .router-link-dark:hover{
+        color: var(--dark);
+    }
+
+    .router-link-white.router-link-exact-active{
+        color: var(--white);
+    }
+
+    .router-link-dark.router-link-exact-active{
         color: var(--dark);
     }
 
@@ -193,5 +288,8 @@ export default {
         margin: 0 auto;
     }
 
+    .btn-primary-blue.router-link-exact-active::before{
+        width: 0;
+    }
 
 </style>

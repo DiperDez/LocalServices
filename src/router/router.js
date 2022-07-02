@@ -7,8 +7,16 @@ const routes = [
         component: () => import('@/modules/pages/Home')
     },
     { 
-        path: '/aboutPage', 
-        component: () => import(/* webpackChunkName: "AboutPage" */'@/modules/pages/AboutPage')
+        path: '/servicios', 
+        component: () => import(/* webpackChunkName: "ServiciosPage" */'@/modules/pages/ServiciosPage')
+    },
+    { 
+        path: '/acercaDe', 
+        component: () => import(/* webpackChunkName: "AboutPage" */'@/modules/pages/AcercaDePage')
+    },
+    { 
+        path: '/registro', 
+        component: () => import(/* webpackChunkName: "RegistroPage" */'@/modules/pages/RegistroPage')
     },
     { 
         path: '/:pathMatch(.*)*', 

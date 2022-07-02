@@ -1,8 +1,8 @@
 <template v-on="resize">
   <div class="container-fluid m-0 p-0">
-    <Navbar/>
-    
-    <routerView/>
+    <Navbar class="position-fixed"/>
+    <routerView class="routerView pb-5"/>
+    <Footer/>
   </div>
 </template>
 
@@ -13,7 +13,8 @@ import {defineAsyncComponent} from 'vue'
 export default {
   name: 'App',
   components: {
-    Navbar: defineAsyncComponent(() => import(/* webpackChunkName: "Navbar" */'@/modules/shared/components/Navbar'))
+    Navbar: defineAsyncComponent(() => import(/* webpackChunkName: "Navbar" */'@/modules/shared/components/Navbar')),
+    Footer: defineAsyncComponent(() => import(/* webpackChunkName: "Footer" */'@/modules/shared/components/Footer'))
   }
 }
 
@@ -26,6 +27,7 @@ export default {
     --dark: #2a2a2a;
     --dark-50: rgba(0,0,0,0.5);
     --white: #FFFFFF;
+    --white-50: rgba(255, 255, 255, 0.7);
     --shadow: rgba(0,0,0,0.2);
     --secondary: #F9F9F9;
     --fontPrimary: 'Roboto Condensed', sans-serif;
@@ -34,6 +36,15 @@ export default {
     --fontRegular: 400;
     --fontBold: 700;
   }
+
+  .bg-localservices-blue{
+    background-color: var(--primary);
+  }
+
+  .bg-localservices-secondary{
+    background-color: var(--secondary);
+  }
+
 
   *, *::after, *::before{
     box-sizing: inherit;
@@ -45,6 +56,7 @@ export default {
 
   body{
     font-family: var(--fontPrimary) !important;
+    background-color: var(--secondary);
   }
 
   /* Cambiamos el fondo cuando esté en active o hover */
@@ -88,20 +100,18 @@ export default {
 
   /* Buttons */
   .btn-primary-blue{
-    border: 2px solid var(--primary);
-    color: var(--primary);
+    border: 2.5px solid var(--primary);
     font-weight: 400;
     font-size: 16px;
     transition: all ease-in .5s;
   }
 
   .btn-primary-blue:hover{
-    border: 2px solid var(--primary);
+    border: 2.5px solid var(--primary);
     background-color: var(--primary);
-    color: var(--white); 
+    color: var(--white) !important; 
     transition: all ease-out .5s;
-    transform: translateY(-2px);
-    box-shadow: 5px 5px 3px #0077fee3;
+    transform: translateY(-1px);
   }
 
   

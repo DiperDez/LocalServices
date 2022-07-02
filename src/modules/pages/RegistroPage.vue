@@ -1,6 +1,6 @@
 <template>
-  <div class="">
-    <h1>Servicios</h1>
+  <div class="bg-dark" style="height: 100vh">
+    <h1>Registro</h1>
   </div>
 </template>
 
