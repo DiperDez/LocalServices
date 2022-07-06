@@ -16,7 +16,7 @@ export default {
 
 <style>
   .section-services{
-    height: 50vh;
+    height: 70vh;
     background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(../../../src/assets/backgrounds/services.jpg);
     background-position: bottom center;
     background-size: cover;

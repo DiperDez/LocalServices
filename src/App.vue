@@ -1,7 +1,7 @@
 <template v-on="resize">
   <div class="container-fluid m-0 p-0">
     <Navbar class="position-fixed"/>
-    <routerView class="routerView pb-5"/>
+    <routerView class="routerView"/>
     <Footer/>
   </div>
 </template>
@@ -94,7 +94,7 @@ export default {
   }
 
   .form-control{
-    font-family: var(--fontSecondary);
+    font-family: var(--fontPrimary);
     font-weight: var(--fontLight);
   }
 

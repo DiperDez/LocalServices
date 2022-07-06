@@ -20,7 +20,7 @@
             <span class="menu-span"></span>
         </div>     
 
-        <div class="col-auto d-none d-lg-flex align-items-center flex-wrap p-0 m-0 gap-4 gap-xl-5" id="menu-items">
+        <div class="col-auto d-none d-lg-flex align-items-center flex-wrap p-0 m-0 gap-4 gap-xl-5 menu-items" id="menu-items">
             <router-link class="text-decoration-none router-link router-link-white" to="/">Inicio</router-link>
             <router-link class="text-decoration-none router-link router-link-white" to="/servicios">Servicios</router-link>
             <router-link class="text-decoration-none router-link router-link-white" to="/acercaDe">Acerca de</router-link>
@@ -50,7 +50,9 @@ export default {
         
         getDimensions(){
             const menuIcon = document.querySelector('.menu-icon'),
-                  container = document.querySelector('.routerView')
+                  container = document.querySelector('.routerView'),
+                  menuItems = document.querySelector('.menu-items'),
+                  menuLink = document.querySelectorAll('.router-link')
 
             this.windowWidth = document.documentElement.clientWidth
 
@@ -58,6 +60,12 @@ export default {
                 if(menuIcon.classList.contains('active')){
                     container.classList.remove('active-container')
                     menuIcon.classList.remove('active')
+                    menuItems.classList.remove('d-flex', 'flex-column', 'col-12', 'mt-5')
+                    menuItems.classList.add('d-none')
+                    
+                    for(let i = 0; i < menuLink.length; i++){
+                        menuLink[i].classList.remove('text-white') 
+                    }
                 }
             }
         },
@@ -88,11 +96,27 @@ export default {
         },
         pressIcon(){
             
-            const menuIcon = document.querySelector('.menu-icon'),
-                  container = document.querySelector('.routerView')
+            const menuIcon  = document.querySelector('.menu-icon'),
+                  menuItems = document.querySelector('.menu-items'),
+                  container = document.querySelector('.routerView'),
+                  menuLink = document.querySelectorAll('.router-link')
 
             menuIcon.classList.toggle('active')
             container.classList.toggle('active-container')   
+
+
+            if(menuItems.classList.contains('d-none')){
+                menuItems.classList.remove('d-none')
+                menuItems.classList.add('d-flex', 'flex-column', 'col-12', 'mt-5')
+                
+                for(let i = 0; i < menuLink.length; i++){
+                    menuLink[i].classList.remove('router-link-dark') 
+                    menuLink[i].classList.add('router-link-white', 'text-white')
+                }
+            }else{
+                menuItems.classList.remove('d-flex', 'flex-column', 'col-12', 'mt-5')
+                menuItems.classList.add('d-none')
+            }
 
         }
 
@@ -280,6 +304,10 @@ export default {
         color: var(--dark);
     }
 
+    .btn-primary-blue.router-link-exact-active{
+        background-color: #0076FE;
+        color: white;
+    }
 
     .router-link-exact-active::before{
         width: 50%;

@@ -66,7 +66,7 @@
   }
 
   .section-home{
-    height: 50vh;
+    height: 70vh;
     background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(../../../src/assets/backgrounds/home.jpg);
     background-position: center bottom;
     background-size: cover;

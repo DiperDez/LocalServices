@@ -16,12 +16,11 @@ export default {
 
 <style>
   .section-services{
-    height: 50vh;
-    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(../../../src/assets/backgrounds/aboutUs.jpg);
-    background-position: bottom right;
-    background-size: cover;
+    height: 70vh;
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(../../../src/assets/backgrounds/aboutUs2.jpg);
+    background-position: center bottom;
+    background-size: 100%;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    position: relative;
   }
 </style>

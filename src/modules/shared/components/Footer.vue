@@ -1,7 +1,7 @@
 <template>
-    <footer class="bg-white shadow m-0 py-5 mt-5 d-flex justify-content-around align-items-center gap-5">
+    <footer class="bg-white shadow m-0 py-5 d-flex justify-content-around align-items-center gap-5">
 
-      <div class="col-12 footer-box text-dark d-flex flex-column justify-content-around     align-items-center">
+      <div class="col-12 footer-box text-dark d-flex flex-column justify-content-around align-items-center">
         
         <div class="col-12 d-flex flex-column align-items-center flex-wrap">
             <div class="mb-5" style="width: 15rem;">
