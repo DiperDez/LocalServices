@@ -1,15 +1,15 @@
 <template>
     <div class="col-12 menu d-flex justify-content-between align-items-center flex-wrap px-2 px-md-3">
-        <div class="col-auto col-lg-5 col-xl-3 menu-search p-0 m-0 h-100 d-flex align-items-center px-1 px-sm-0">
+        <div class="col-auto col-lg-5 col-xl-4 menu-search p-0 m-0 h-100 d-flex align-items-center px-1 px-sm-0">
             
-            <img src="../../../../src/assets/Logo/LocalServicesLogoWhite.png" alt="Logo" class="logo py-2 logo-dark">
+            <img :src="logo" alt="Logo" class="logo py-2 logo-dark">
             
 
             <div class="col-12 input-group input-search h-auto ms-md-5 d-none d-md-flex shadow-sm">
                  <input type="text" placeholder="Busca un servicio" class="form-control rounded-0 shadow-none ps-3">
                  <svg xmlns="http://www.w3.org/2000/svg" class="h-100 w-6 text-secondary search-svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
+                </svg>      
             </div>
 
         </div>
@@ -35,7 +35,8 @@ export default {
     data(){
         return{
             windowWidth: document.documentElement.clientWidth,
-            windowScroll: window.scrollY
+            windowScroll: window.scrollY,
+            logo: require('../../../assets/Logo/LocalServicesLogoWhite.png'),
         }
     },
     mounted(){
@@ -82,6 +83,8 @@ export default {
                     menuLink[i].classList.remove('router-link-white') 
                     menuLink[i].classList.add('router-link-dark')
                 }
+                
+                this.logo = require('../../../assets/Logo/LocalServicesLogoBlack.png')
 
             }else{
                 menu.classList.remove('menu-scroll')
@@ -91,6 +94,8 @@ export default {
                     menuLink[i].classList.remove('router-link-dark') 
                     menuLink[i].classList.add('router-link-white')
                 }
+
+                this.logo = require('../../../assets/Logo/LocalServicesLogoWhite.png')
             }
 
         },
