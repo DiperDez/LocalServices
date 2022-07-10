@@ -161,7 +161,7 @@ export default {
     }
 
     .menu .menu-span{
-        background-color: white;
+        background-color: var(--white);
     }
 
     .menu .input-search,
@@ -174,7 +174,7 @@ export default {
         width: 100%;
         height: 70px;
         z-index: 1000;
-        background-color: white;
+        background-color: var(--white);
         transition: all ease .8s;
     }
 
@@ -309,9 +309,9 @@ export default {
         color: var(--dark);
     }
 
-    .btn-primary-blue.router-link-exact-active{
+    .btn-primary-outline-local.router-link-exact-active{
         background-color: #0076FE;
-        color: white;
+        color: var(--white);
     }
 
     .router-link-exact-active::before{
@@ -321,7 +321,7 @@ export default {
         margin: 0 auto;
     }
 
-    .btn-primary-blue.router-link-exact-active::before{
+    .btn-primary-outline-local.router-link-exact-active::before{
         width: 0;
     }
 

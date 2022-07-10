@@ -28,8 +28,10 @@ export default {
     --dark-50: rgba(0,0,0,0.5);
     --white: #FFFFFF;
     --white-50: rgba(255, 255, 255, 0.7);
-    --shadow: rgba(0,0,0,0.2);
     --secondary: #F9F9F9;
+    --danger: #F8333C;
+    --success: #44AF69; 
+    --orange: #ff9100; 
     --fontPrimary: 'Roboto Condensed', sans-serif;
     --fontSecondary: 'Comfortaa', cursive;
     --fontLight: 300;
@@ -37,13 +39,16 @@ export default {
     --fontBold: 700;
   }
 
-  .bg-localservices-blue{
-    background-color: var(--primary);
-  }
+  /* Background colors */  
+  .bg-primary-local{ background-color: var(--primary);}
+  .bg-primary-local{ background-color: var(--secondary); }
+  .bg-orange-local{ background-color: var(--orange); }
 
-  .bg-localservices-secondary{
-    background-color: var(--secondary);
-  }
+  /* Border colors */
+  .border-2px{ border-width: 2px; }
+  .border-success-local{ border-color: var(--success); }
+  .border-danger-local{ border-color: var(--danger); }
+
 
 
   *, *::after, *::before{
@@ -99,14 +104,14 @@ export default {
   }
 
   /* Buttons */
-  .btn-primary-blue{
+  .btn-primary-outline-local{
     border: 2.5px solid var(--primary);
     font-weight: 400;
     font-size: 16px;
     transition: all ease-in .5s;
   }
 
-  .btn-primary-blue:hover{
+  .btn-primary-outline-local:hover{
     border: 2.5px solid var(--primary);
     background-color: var(--primary);
     color: var(--white) !important; 
@@ -114,6 +119,28 @@ export default {
     transform: translateY(-1px);
   }
 
-  
+  .btn-local{
+    color: var(--white);
+    border: none;
+    border-radius: 5px;
+    transition: background ease-out .2s;
+  }
+
+  .btn-local:hover{ transition: background ease-in .2s; }
+
+  .btn-primary-local{ background-color: var(--primary); }
+  .btn-orange-local{ background-color: var(--orange); }
+
+
+  .btn-primary-local:hover{ background-color: #016eeb; }
+  .btn-orange-local:hover{ background-color: #e78401; }
 
 </style>
+
+ <!-- <button
+                class="btn-orange-local btn-local w-25 py-1"
+                @click.prevent="validarInputs"
+                v-show="isState1"s
+              >
+                Anterior
+              </button> -->
