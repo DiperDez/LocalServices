@@ -28,7 +28,7 @@ export default {
     --dark-50: rgba(0,0,0,0.5);
     --white: #FFFFFF;
     --white-50: rgba(255, 255, 255, 0.7);
-    --secondary: #F9F9F9;
+    --secondary: #ced4da;
     --danger: #EF476F;
     --success: #06D6A0; 
     --orange: #ff9100; 
@@ -43,8 +43,6 @@ export default {
   .text-danger-local{ color: var(--danger); }
 
   /* Background colors */  
-  .bg-primary-local{ background-color: var(--primary);}
-  .bg-primary-local{ background-color: var(--secondary); }
   .bg-orange-local{ background-color: var(--orange); }
 
   /* Border colors */
@@ -129,14 +127,21 @@ export default {
     transition: background ease-out .2s;
   }
 
+  .btn-local:disabled{
+    cursor: not-allowed;
+    background-color: var(--secondary);
+    color: var(--dark-50);
+  }
+
   .btn-local:hover{ transition: background ease-in .2s; }
 
   .btn-primary-local{ background-color: var(--primary); }
   .btn-orange-local{ background-color: var(--orange); }
 
 
-  .btn-primary-local:hover{ background-color: #016eeb; }
+  .btn-primary-local:enabled:hover{ background-color: #016eeb; }
   .btn-orange-local:hover{ background-color: #e78401; }
+
 
 </style>
 

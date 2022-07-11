@@ -29,7 +29,6 @@
               <div class="col-12 mb-3">
                 <label for="">Nombre</label>
                 <input
-                  v-model="datos.nombre"
                   type="text"
                   placeholder="Nombre (s)"
                   class="form-control rounded-1 shadow-none"
@@ -39,7 +38,6 @@
               <div class="col-12 mb-3">
                 <label for="">Apellido Paterno</label>
                 <input
-                  v-model="datos.apellidoPaterno"
                   type="text"
                   placeholder="Apellido Paterno"
                   class="form-control rounded-1 shadow-none"
@@ -49,7 +47,6 @@
               <div class="col-12 mb-3">
                 <label for="">Apellido Materno</label>
                 <input
-                  v-model="datos.apellidoMaterno"
                   type="text"
                   placeholder="Apellido Materno "
                   class="form-control rounded-1 shadow-none"
@@ -60,8 +57,8 @@
             <div class="col-12 mt-1 mb-3 gap-3 text-end">
              
               <button
-                class="btn-primary-local btn-local w-25 py-1"
-                @click.prevent="validarInputs"
+                class="btn-primary-local btn-local w-25 py-1 siguiente"
+                @click.prevent="validarFormulario"
               >
                 Siguiente
               </button>
@@ -73,6 +70,9 @@
               </div>
             </div>
           </div>
+
+
+          <slot></slot>
         </form>
       </div>
     </div>
@@ -84,48 +84,99 @@ export default {
   data() {
     return {
       datos: {
-        nombre: "",
-        apellidoPaterno: "",
-        apellidoMaterno: "",
+        nombre: false,
+        apellidoPaterno: false,
+        apellidoMaterno: false,
+        email: false,
+        password: false,
+        direccion: false
       },
       expresiones: {
-        nombre: /^[a-zA-ZÀ-ÿ\s]{1,40}$/,
+        texto: /^[a-zA-ZÀ-ÿ\s]{1,40}$/,
         email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
         password: /^.{4,12}$/
       }
-    };
+    }
   },
   methods: {
-    validarInputs(e) {
+    validarFormulario() {
       const inputs = document.querySelectorAll("#formRegistro input")      
       inputs.forEach(input => {
-        if(!input.value){
-          const mensaje = document.createElement('p')
-          mensaje.classList.add('text-danger-local', 'm-0') 
-          mensaje.textContent = 'Este campo es obligatorio.'
 
-          input.classList.add('border-danger-local', 'border-2px')
-          input.parentElement.classList.remove('mb-3')
-          input.parentElement.classList.add('mb-1')
-
-          if(!input.parentElement.lastElementChild.classList.contains('text-danger-local')){
-            input.parentElement.appendChild(mensaje)
-          }
-        }else{
-          input.classList.remove('border-danger-local', 'border-2px')
-          input.classList.add('border-success-local', 'border-2px')
-          input.parentElement.classList.remove('mb-1')
-          input.parentElement.classList.add('mb-3')
-
-          if(input.parentElement.lastElementChild.classList.contains('text-danger-local')){
-            input.parentElement.lastElementChild.remove()
-          }
-
+        switch(input.name){
+          case 'nombre':
+            this.validarCampo(this.expresiones.texto, input, 'nombre')
+          break;
+          case 'apellidoPaterno':
+            this.validarCampo(this.expresiones.texto, input, 'apellidoPaterno')
+          break;
+          case 'apellidoMaterno':
+            this.validarCampo(this.expresiones.texto, input, 'apellidoMaterno')
+          break;
         }
+
       })
     },
+    validarCampo(expresion, input, campo){
+
+      if(expresion.test(input.value)){
+
+        input.classList.remove('border-danger-local', 'border-2px')
+        input.classList.add('border-success-local', 'border-2px')
+        
+        input.parentElement.classList.remove('mb-1')
+        input.parentElement.classList.add('mb-3')
+
+        if(input.parentElement.querySelector('.error')){
+          input.parentElement.lastElementChild.remove()
+        }
+
+        this.datos[campo] = true
+
+      }else{
+
+        input.classList.remove('border-success-local', 'border-2px')
+        input.classList.add('border-danger-local', 'border-2px')
+
+        input.parentElement.classList.remove('mb-1')
+        input.parentElement.classList.add('mb-3')
+
+        const error = document.createElement('p')
+        error.classList.add('text-danger', 'error')
+
+        const contenedorPadre = input.parentElement
+        contenedorPadre.appendChild(error)
+
+
+        input.value.length <= 0 
+          ? error.textContent = 'Este campo es obligatorio.' 
+          : input.type == 'text' ? error.textContent = 'Solo se permite texto' : undefined  
+
+
+        if(contenedorPadre.querySelectorAll('.error').length > 1){
+          contenedorPadre.querySelector('.error').remove();
+        }
+
+        this.datos[campo] = false
+      }
+
+      if(this.datos.nombre && this.datos.apellidoPaterno && this.datos.apellidoMaterno){
+        const numeroSeccion = document.querySelectorAll('.seccion-numero')
+        let indice = 0;
+
+        numeroSeccion[indice].classList.add('seccion-numero-correcto');
+        
+        if(this.datos.nombre){
+          indice++;
+          numeroSeccion[indice].classList.add('seccion-numero-correcto');
+        }
+
+      }else{
+        console.log('Datos no completos');
+      }
+    },
     registrarUsuario() {
-      this.validarInputs()
+      // this.validar()
   
       // const datosUsuario = await fetch('http://localhost/LocalServicesAPI/api/?insertar=1', {
       // method: "POobjectST",
@@ -141,6 +192,7 @@ export default {
 
 <style>
 .bg-register {
+  height: 100vh;
   padding: 10vh 0px;
   background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(../../../src/assets/backgrounds/register.jpg);
   background-position: bottom center;
@@ -153,14 +205,14 @@ export default {
   width: 380px;
 }
 
-.seccion-registro {
+.seccion-registro{
   height: 70px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.seccion-numero {
+.seccion-numero{
   width: 50px;
   height: 50px;
   border: 2px solid #beb8eb;
@@ -170,24 +222,34 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 2;
   position: relative;
+  animation: spin 2s linear;
 }
 
-.seccion-numero:nth-child(2)::before,
-.seccion-numero:nth-child(2)::after {
+.seccion-numero:first-child::before,
+.seccion-numero:first-child::after{
   content: "";
   position: absolute;
-  width: 110%;
   height: 2px;
-  background-color: #beb8eb;
-  z-index: 1;
-}
-
-.seccion-numero:nth-child(2)::before {
-  right: 100%;
-}
-.seccion-numero:nth-child(2)::after {
   left: 100%;
 }
+
+.seccion-numero:first-child::before{
+  width: 400%;
+  background-color: #beb8eb;
+}
+
+.seccion-numero-correcto.seccion-numero:first-child::after{
+  width: 200%;
+  background-color: var(--primary);
+  transition: all ease-out .5s;
+}
+
+.seccion-numero-correcto{
+  border-color: var(--primary);
+  background-color: var(--primary);
+  color: var(--white);
+  transition: all ease-out .4s;
+}
+
 </style>
