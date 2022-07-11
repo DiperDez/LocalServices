@@ -32,7 +32,7 @@
                   v-model="datos.nombre"
                   type="text"
                   placeholder="Nombre (s)"
-                  class="form-control rounded-1"
+                  class="form-control rounded-1 shadow-none"
                   name="nombre"
                 />
               </div>
@@ -42,17 +42,17 @@
                   v-model="datos.apellidoPaterno"
                   type="text"
                   placeholder="Apellido Paterno"
-                  class="form-control rounded-1"
+                  class="form-control rounded-1 shadow-none"
                   name="apellidoPaterno"
                 />
               </div>
-              <div class="col-12 mb-4">
+              <div class="col-12 mb-3">
                 <label for="">Apellido Materno</label>
                 <input
                   v-model="datos.apellidoMaterno"
                   type="text"
                   placeholder="Apellido Materno "
-                  class="form-control rounded-1"
+                  class="form-control rounded-1 shadow-none"
                   name="apellidoMaterno"
                 />
               </div>
@@ -88,24 +88,45 @@ export default {
         apellidoPaterno: "",
         apellidoMaterno: "",
       },
+      expresiones: {
+        nombre: /^[a-zA-ZÀ-ÿ\s]{1,40}$/,
+        email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
+        password: /^.{4,12}$/
+      }
     };
   },
   methods: {
     validarInputs(e) {
-      const inputs = document.querySelectorAll("#formRegistro input")
-
+      const inputs = document.querySelectorAll("#formRegistro input")      
       inputs.forEach(input => {
         if(!input.value){
+          const mensaje = document.createElement('p')
+          mensaje.classList.add('text-danger-local', 'm-0') 
+          mensaje.textContent = 'Este campo es obligatorio.'
+
           input.classList.add('border-danger-local', 'border-2px')
-          console.log(input.parentElement);
+          input.parentElement.classList.remove('mb-3')
+          input.parentElement.classList.add('mb-1')
+
+          if(!input.parentElement.lastElementChild.classList.contains('text-danger-local')){
+            input.parentElement.appendChild(mensaje)
+          }
         }else{
+          input.classList.remove('border-danger-local', 'border-2px')
           input.classList.add('border-success-local', 'border-2px')
+          input.parentElement.classList.remove('mb-1')
+          input.parentElement.classList.add('mb-3')
+
+          if(input.parentElement.lastElementChild.classList.contains('text-danger-local')){
+            input.parentElement.lastElementChild.remove()
+          }
+
         }
       })
     },
     registrarUsuario() {
-      this.validarInputs();
-
+      this.validarInputs()
+  
       // const datosUsuario = await fetch('http://localhost/LocalServicesAPI/api/?insertar=1', {
       // method: "POobjectST",
       // body: JSON.stringify(this.datosUsuario)
@@ -120,7 +141,7 @@ export default {
 
 <style>
 .bg-register {
-  height: 100vh;;
+  padding: 10vh 0px;
   background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(../../../src/assets/backgrounds/register.jpg);
   background-position: bottom center;
   background-size: cover;

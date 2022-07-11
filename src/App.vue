@@ -29,8 +29,8 @@ export default {
     --white: #FFFFFF;
     --white-50: rgba(255, 255, 255, 0.7);
     --secondary: #F9F9F9;
-    --danger: #F8333C;
-    --success: #44AF69; 
+    --danger: #EF476F;
+    --success: #06D6A0; 
     --orange: #ff9100; 
     --fontPrimary: 'Roboto Condensed', sans-serif;
     --fontSecondary: 'Comfortaa', cursive;
@@ -38,6 +38,9 @@ export default {
     --fontRegular: 400;
     --fontBold: 700;
   }
+
+  /* Text Colors */
+  .text-danger-local{ color: var(--danger); }
 
   /* Background colors */  
   .bg-primary-local{ background-color: var(--primary);}
