@@ -192,7 +192,6 @@ export default {
 
 <style>
 .bg-register {
-  height: 100vh;
   padding: 10vh 0px;
   background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(../../../src/assets/backgrounds/register.jpg);
   background-position: bottom center;
