@@ -43,6 +43,7 @@ export default {
   .text-danger-local{ color: var(--danger); }
 
   /* Background colors */  
+  .bg-primary-local{ background-color: var(--primary); }
   .bg-orange-local{ background-color: var(--orange); }
 
   /* Border colors */

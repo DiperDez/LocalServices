@@ -154,7 +154,7 @@ export default {
 
 
         if(contenedorPadre.querySelectorAll('.error').length > 1){
-          contenedorPadre.querySelector('.error').remove();
+          contenedorPadre.querySelector('.error').remove(); 
         }
 
         this.datos[campo] = false

@@ -19,6 +19,10 @@ const routes = [
         component: () => import(/* webpackChunkName: "RegistroPage" */'@/modules/pages/RegistroPage')
     },
     { 
+        path: '/registroDatos', 
+        component: () => import(/* webpackChunkName: "RegistroDatosPage" */'@/modules/pages/RegistroDatos')
+    },
+    { 
         path: '/:pathMatch(.*)*', 
         component: () => import(/* webpackChunkName: "NoPageFound" */'@/modules/shared/pages/NoPageFound')
     },
