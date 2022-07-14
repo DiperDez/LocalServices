@@ -143,7 +143,7 @@ export default {
   .btn-primary-local:enabled:hover{ background-color: #016eeb; }
   .btn-orange-local:hover{ background-color: #e78401; }
 
-
+  .list-style-none{list-style: none;}
 </style>
 
  <!-- <button

@@ -3,8 +3,9 @@
     <form class="col-4 bg-white rounded-1 py-2" @submit.prevent="registrarOficio">
         <h4 class="h4 text-center mb-3">Registro de datos - informaciónOficios</h4>
         <div class="mb-3">
-            <label for="">Logo - de preferencia .ico</label>
+            <label for="">Logo - de preferencia (.ico, .jpg, .jpeg, .png)</label>
             <input v-on:change="onFileChange" type="file" class="form-control" name="logoImg" placeholder="Seleccionar archivo">
+            <img :src="url" style="width: 200px" v-if="url" class="p-2">
         </div>
         <div class="mb-3">
             <label for="">Razón Social (nombre del lugar)</label>
@@ -54,6 +55,7 @@
             <label for="">Password</label>
             <input v-model="this.datosOficio.password" type="text" class="form-control" name="password" placeholder="Password">
         </div>
+        <p class="mb-2" v-if="mensaje">{{mensaje}}</p>
         <div class="mb-3 text-end">
             <input type="submit" class="btn btn-primary btn-sm" value="Registrar datos">
         </div>
@@ -65,9 +67,10 @@
 export default {
     data(){
         return{
+            url: null,
+            mensaje: '',
             datosOficio: {
-                selectedFile: null,
-                imagen: '',
+                imagen: null,
                 razonSocial: '',
                 nombrePropietario: '',
                 apellidoPaterno: '',
@@ -85,35 +88,56 @@ export default {
     },
     methods: {
         registrarOficio(){
-            console.log(this.datosOficio)
-            // const datosUsuario = await fetch('http://localhost/LocalServicesAPI/api/?registrarOficio=1', {
-                // method: "POobjectST",
-                // body: JSON.stringify(this.datosUsuario)
+            // console.log(this.datosOficio)
+
+
+            // fetch('http://localhost/LocalServicesAPI/api/?registrarOficio=1', {
+            //     method: "POST",
+            //     body: JSON.stringify(this.datosOficio)
             // }).then(r => r.json())
             // .catch(console.log)
         
-            // typeof datosUsuario === 'object' ? window.location.href = '/' : console.log('error');
             const formData = new FormData()
-            formData.append('image_to_upload', this.datosOficio.selectedFile, this.datosOficio.selectedFile.name)
 
-            fetch('http://localhost/LocalServicesAPI/api/registrarOficio.php?insertar=1', {
+            formData.append('image', this.datosOficio.imagen)
+            formData.append('razonSocial', this.datosOficio.razonSocial)
+            formData.append('nombrePropietario', this.datosOficio.nombrePropietario)
+            formData.append('apellidoPaterno', this.datosOficio.apellidoPaterno)
+            formData.append('apellidoMaterno', this.datosOficio.apellidoMaterno)
+            formData.append('noEstablecimiento', this.datosOficio.noEstablecimiento)
+            formData.append('horario', this.datosOficio.horario)
+            formData.append('costo', this.datosOficio.costo)
+            formData.append('referencia', this.datosOficio.referencia)
+            formData.append('informacionOficio', this.datosOficio.informacionOficio)
+            formData.append('telefono', this.datosOficio.telefono)
+            formData.append('email', this.datosOficio.email)
+            formData.append('password', this.datosOficio.password)
+
+            fetch('http://localhost/LocalServicesAPI/api/?registrarOficio=1', {
                 method: 'POST',
                 body: formData
-            }).then(function(response){
-                console.log(response);
-            }).catch(function(error){
-                console.log(error);
             })
+                .then(() =>{
+                    this.mensaje = 'Exito';
+                }).catch(function(error){
+                    console.log(error);
+                })
            
         },
-        createImage(file){
-            const reader = new FileReader()
-            reader.onload = (e) => { this.datosOficio.imagen = e.target.result  }
-            reader.readAsDataURL(file)
-        },
+        // createImage(file){
+        //     const reader = new FileReader()
+        //     reader.onload = (e) => { this.datosOficio.imagen = e.target.result  }
+        //     reader.readAsDataURL(file)
+        // },
         onFileChange(e){
-            this.datosOficio.selectedFile = e.target.files[0]
-            this.createImage(this.datosOficio.selectedFile)
+            const file = e.target.files[0]
+            this.url = URL.createObjectURL(file)
+            this.datosOficio.imagen = file
+        },
+        leerServicios(){
+            fetch('http://localhost/LocalServicesAPI/api/?leerServicios=1')
+                .then(r => r.json())
+                .catch(console.log)
         }
     }
 }
