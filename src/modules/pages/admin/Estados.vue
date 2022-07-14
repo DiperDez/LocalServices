@@ -1,8 +1,9 @@
 <template>
-  <div class="container-fluid p-0 m-0 row p-5 bg-orange-local d-flex justify-content-center">
+  <div class="col-12 px-0 py-5 m-0 d-flex flex-wrap justify-content-center gap-4 align-items-baseline">
     
-    <div class="col-6 d-flex justify-content-end flex-wrap gap-4">
-      <form class="col-12 col-md-10 col-lg-8 bg-white rounded-1 p-3" @submit.prevent="registrarEstado">
+    <div class="col-12 col-md-10 col-lg-6 d-flex justify-content-md-center justify-content-lg-end flex-wrap gap-4 p-0 m-0">
+      
+      <form class="col-12 col-md-10 col-lg-6 col-lg-8 bg-white rounded-1 p-3" @submit.prevent="registrarEstado">
           <h4 class="h4 text-center mb-3">Registrar estado</h4>
           <div class="mb-3">
               <label for="nombreEstado">Nombre del estado</label>
@@ -14,7 +15,7 @@
           </div>
       </form>
       
-      <form class="col-12 col-md-10 col-lg-8  bg-white rounded-1 p-3" @submit.prevent="editarEstado" id="editarEstado">
+      <form class="col-12 col-md-10 col-lg-6 col-lg-8 bg-white rounded-1 p-3" @submit.prevent="editarEstado" id="editarEstado">
           <h4 class="h4 text-center mb-3">Editar estado</h4>
           <div class="mb-3">
               <label for="nombreEstado">Nombre del estado</label>
@@ -25,12 +26,13 @@
               <button type="submit" class="btn btn-success btn-sm">Guardar cambios</button>
           </div>
       </form>
+
     </div>
-    <div class="col-6 d-flex justify-content-center flex-wrap gap-4 align-items-baseline">
-      <div class="col-8 bg-white rounded-1 p-3">
+    <div class="col-12 col-md-10 col-lg-5 d-flex justify-content-center align-items-baseline">
+      <div class="col-12 col-md-10 bg-white rounded-1 p-3">
         <h4 class="h4 text-center mb-3">Lista de estados</h4>
         <div class="col-12" v-for="estado in estados" :key="estado.idEstado">
-          <div class="col-12 d-flex justify-content-between my-3">
+          <div class="col-12 d-flex justify-content-between my-3 flex-wrap">
             <li class="list-style-none bg-light d-flex justify-content-center align-items-center px-2 rounded-1">{{estado.idEstado}} - <span name="estado" class="ps-1">{{estado.NombreEstado}}</span></li>
               <div class="btn-group">
                 <a 
@@ -84,7 +86,7 @@ export default {
     },
     methods: {
         async leerEstados(){
-            await fetch('http://localhost/LocalServicesAPI/api/estado.php')
+            await fetch('http://localservices.com.mx/LocalServicesAPI/api/estado.php')
             .then(r => r.json())
             .then(data => {
                 this.estados = []
@@ -97,7 +99,7 @@ export default {
         },
         registrarEstado(){
             if(this.registrarDatos.nombreEstado != ''){
-              fetch('http://localhost/LocalServicesAPI/api/estado.php?registrarEstado=1', {
+              fetch('http://localservices.com.mx/LocalServicesAPI/api/estado.php?registrarEstado=1', {
                   method: "POST",
                   body: JSON.stringify(this.registrarDatos)
               }).then(r => {
@@ -131,7 +133,7 @@ export default {
         },
         editarEstado(){
           if(this.editarDatos.idEstado != null && this.editarDatos.nombreEstado != ''){
-            fetch('http://localhost/LocalServicesAPI/api/estado.php?editarEstado=1', {
+            fetch('http://localservices.com.mx/LocalServicesAPI/api/estado.php?editarEstado=1', {
                 method: "POST",
                 body: JSON.stringify(this.editarDatos)
             }).then(r => {
@@ -152,7 +154,7 @@ export default {
           // Variables
           const dataID = e.target.getAttribute('data-id')
         
-          fetch(`http://localhost/LocalServicesAPI/api/estado.php?eliminarEstado=${dataID}`).then(r => {
+          fetch(`http://localservices.com.mx/LocalServicesAPI/api/estado.php?eliminarEstado=${dataID}`).then(r => {
             r.json()
             if(r.statusText == 'OK'){
               location.reload()  

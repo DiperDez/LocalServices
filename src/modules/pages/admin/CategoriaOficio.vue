@@ -1,8 +1,8 @@
 <template>
-  <div class="container-fluid p-0 m-0 row p-5 bg-orange-local d-flex justify-content-center align-items-baseline">
+  <div class="col-12 px-0 py-5 m-0 d-flex flex-wrap justify-content-center gap-4 align-items-baseline">
     
-    <div class="col-6 d-flex justify-content-end flex-wrap gap-4">
-      <form class="col-12 col-md-10 col-lg-8 bg-white rounded-1 p-3" @submit.prevent="registrarCategoria">
+    <div class="col-12 col-md-10 col-lg-6 d-flex justify-content-md-center justify-content-lg-end flex-wrap gap-4 p-0 m-0 align-items-baseline">
+      <form class="col-12 col-md-10 col-lg-6 col-lg-8 bg-white rounded-1 p-3" @submit.prevent="registrarCategoria">
           <h4 class="h4 text-center mb-3">Registrar categoría oficio</h4>
           <div class="mb-3">
               <label for="categoriaOficio">Nombre de la categoría oficio</label>
@@ -14,7 +14,7 @@
           </div>
       </form>
       
-      <form class="col-12 col-md-10 col-lg-8  bg-white rounded-1 p-3" @submit.prevent="editarCategoria" id="editarMetodo">
+      <form class="col-12 col-md-10 col-lg-6 col-lg-8 bg-white rounded-1 p-3" @submit.prevent="editarCategoria" id="editarMetodo">
           <h4 class="h4 text-center mb-3">Editar categoría oficio</h4>
           <div class="mb-3">
               <label for="categoriaOficio">Nombre de la categoría oficio</label>
@@ -26,8 +26,8 @@
           </div>
       </form>
     </div>
-    <div class="col-6 d-flex justify-content-center flex-wrap gap-4 align-items-baseline">
-      <div class="col-8 bg-white rounded-1 p-3">
+    <div class="col-12 col-md-10 col-lg-5 d-flex justify-content-center align-items-baseline">
+      <div class="col-12 col-md-10 bg-white rounded-1 p-3">
         <h4 class="h4 text-center mb-3">Lista de categorías oficio</h4>
         <div class="col-12" v-for="categoria in categoriaOficios" :key="categoria.idCategoriaOficio">
           <div class="col-12 d-flex justify-content-between my-3">
@@ -80,12 +80,12 @@ export default {
         }
     },
     created(){
-        this.leerMetodos()
+        this.leerCategoria()
     },
     methods: {
-        async leerMetodos(){
+        async leerCategoria(){
 
-            await fetch('http://localhost/LocalServicesAPI/api/categoriaOficio.php')
+            await fetch('http://localservices.com.mx/LocalServicesAPI/api/categoriaOficio.php')
             .then(r => r.json())
             .then(data => {
                 
@@ -101,7 +101,7 @@ export default {
         registrarCategoria(){
           console.log(this.registrarDatos);
             if(this.registrarDatos.categoriaOficio != ''){
-                fetch('http://localhost/LocalServicesAPI/api/categoriaOficio.php?registrarCategoria=1', {
+                fetch('http://localservices.com.mx/LocalServicesAPI/api/categoriaOficio.php?registrarCategoria=1', {
                     method: "POST",
                     body: JSON.stringify(this.registrarDatos)
                 }).then(r => {
@@ -136,7 +136,7 @@ export default {
         },
         editarCategoria(){
           if(this.editarDatos.idCategoria != null && this.editarDatos.categoriaOficio != ''){
-            fetch('http://localhost/LocalServicesAPI/api/categoriaOficio.php?editarCategoria=1', {
+            fetch('http://localservices.com.mx/LocalServicesAPI/api/categoriaOficio.php?editarCategoria=1', {
                 method: "POST",
                 body: JSON.stringify(this.editarDatos)
             }).then(r => {
@@ -157,7 +157,7 @@ export default {
           // Variables
           const dataID = e.target.getAttribute('data-id')
         
-          fetch(`http://localhost/LocalServicesAPI/api/categoriaOficio.php?eliminarCategoria=${dataID}`).then(r => {
+          fetch(`http://localservices.com.mx/LocalServicesAPI/api/categoriaOficio.php?eliminarCategoria=${dataID}`).then(r => {
             r.json()
             if(r.statusText == 'OK'){
               location.reload()  

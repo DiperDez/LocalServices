@@ -1,8 +1,8 @@
 <template>
-  <div class="container-fluid p-0 m-0 row p-5 bg-orange-local d-flex justify-content-center">
+  <div class="col-12 px-0 py-5 m-0 d-flex flex-wrap justify-content-center gap-4 align-items-baseline">
     
-    <div class="col-6 d-flex justify-content-end flex-wrap gap-4">
-      <form class="col-12 col-md-10 col-lg-8 bg-white rounded-1 p-3" @submit.prevent="registrarMetodo">
+    <div class="col-12 col-md-10 col-lg-6 d-flex justify-content-md-center justify-content-lg-end flex-wrap gap-4 p-0 m-0">
+      <form class="col-12 col-md-10 col-lg-6 col-lg-8 bg-white rounded-1 p-3" @submit.prevent="registrarMetodo">
           <h4 class="h4 text-center mb-3">Registrar método de pago</h4>
           <div class="mb-3">
               <label for="metodoPago">Nombre del método de pago</label>
@@ -14,7 +14,7 @@
           </div>
       </form>
       
-      <form class="col-12 col-md-10 col-lg-8  bg-white rounded-1 p-3" @submit.prevent="editarMetodo" id="editarMetodo">
+      <form class="col-12 col-md-10 col-lg-6 col-lg-8 bg-white rounded-1 p-3" @submit.prevent="editarMetodo" id="editarMetodo">
           <h4 class="h4 text-center mb-3">Editar método de pago</h4>
           <div class="mb-3">
               <label for="metodoPago">Nombre del método de pago</label>
@@ -26,8 +26,8 @@
           </div>
       </form>
     </div>
-    <div class="col-6 d-flex justify-content-center flex-wrap gap-4 align-items-baseline">
-      <div class="col-8 bg-white rounded-1 p-3">
+    <div class="col-12 col-md-10 col-lg-5 d-flex justify-content-center align-items-baseline">
+      <div class="col-12 col-md-10 bg-white rounded-1 p-3">
         <h4 class="h4 text-center mb-3">Lista de métodos de pago</h4>
         <div class="col-12" v-for="metodo in metodos" :key="metodo.idMetodoPago">
           <div class="col-12 d-flex justify-content-between my-3">
@@ -85,7 +85,7 @@ export default {
     methods: {
         async leerMetodos(){
 
-            await fetch('http://localhost/LocalServicesAPI/api/metodoPago.php')
+            await fetch('http://localservices.com.mx/LocalServicesAPI/api/metodoPago.php')
             .then(r => r.json())
             .then(data => {
                 
@@ -101,7 +101,7 @@ export default {
         },
         registrarMetodo(){
             if(this.registrarDatos.metodoPago != ''){
-                fetch('http://localhost/LocalServicesAPI/api/metodoPago.php?registrarMetodo=1', {
+                fetch('http://localservices.com.mx/LocalServicesAPI/api/metodoPago.php?registrarMetodo=1', {
                     method: "POST",
                     body: JSON.stringify(this.registrarDatos)
                 }).then(r => {
@@ -135,7 +135,7 @@ export default {
         },
         editarMetodo(){
           if(this.editarDatos.idMetodo != null && this.editarDatos.metodoPago != ''){
-            fetch('http://localhost/LocalServicesAPI/api/metodoPago.php?editarMetodo=1', {
+            fetch('http://localservices.com.mx/LocalServicesAPI/api/metodoPago.php?editarMetodo=1', {
                 method: "POST",
                 body: JSON.stringify(this.editarDatos)
             }).then(r => {
@@ -156,7 +156,7 @@ export default {
           // Variables
           const dataID = e.target.getAttribute('data-id')
         
-          fetch(`http://localhost/LocalServicesAPI/api/metodoPago.php?eliminarMetodo=${dataID}`).then(r => {
+          fetch(`http://localservices.com.mx/LocalServicesAPI/api/metodoPago.php?eliminarMetodo=${dataID}`).then(r => {
             r.json()
             if(r.statusText == 'OK'){
               location.reload()  
