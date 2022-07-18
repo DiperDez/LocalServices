@@ -44,7 +44,7 @@ const routes = [
             },
             { 
                 path: '/administrador/categoriaOficio', 
-                name: 'registro',
+                name: 'categoriaOficio',
                 component: () => import(/* webpackChunkName: "CategoriOficioPage" */'@/modules/pages/admin/CategoriaOficio')
             },
         ]

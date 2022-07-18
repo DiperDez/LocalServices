@@ -28,7 +28,7 @@ export default {
     --dark-50: rgba(0,0,0,0.5);
     --white: #FFFFFF;
     --white-50: rgba(255, 255, 255, 0.7);
-    --secondary: #ced4da;
+    --secondary: #f8f9fa;
     --danger: #EF476F;
     --success: #06D6A0; 
     --orange: #ff9100; 
@@ -119,6 +119,11 @@ export default {
     color: var(--white) !important; 
     transition: all ease-out .5s;
     transform: translateY(-1px);
+  }
+
+  .btn-primary-outline-local:focus{
+    border: none;
+    outline: none;
   }
 
   .btn-local{

@@ -1,9 +1,10 @@
 <template>
   <div class="row m-0 p-0">
     <section class="col-12 section-home d-flex flex-column justify-content-start align-items-center">
-      <div class="col-12 col-md-10 col-lg-7 h-100 px-2 d-flex flex-column justify-content-center align-items-center flex-wrap">
-         
+      <div class="col-12 h-100 px-2 d-flex flex-column justify-content-end align-items-center flex-wrap">
+         <h1 class="display-1 text-white fw-bold text-uppercase text-center mb-5">Encuentra tu mejor opción.</h1>
       </div>
+      <Search/>
     </section>
     <section class="col-12 section-register d-flex justify-content-center align-items-center flex-wrap my-5">
       <div class="col-11 d-flex justify-content-center flex-wrap">
@@ -54,8 +55,17 @@
 </template>
 
 <script>
+  import Search from '../shared/components/Search';
+  
   export default {
-    
+    data(){
+      return{
+
+      }
+    },
+    components:{
+      Search
+    }
   }
 </script>
 
@@ -67,7 +77,7 @@
 
   .section-home{
     height: 70vh;
-    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(../../../src/assets/backgrounds/home.jpg);
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(../../../src/assets/backgrounds/home-background.jpg);
     background-position: center bottom;
     background-size: cover;
     background-repeat: no-repeat;
@@ -75,18 +85,10 @@
     position: relative;
   }
 
-  /* .section-home::before{
-    content: "";
-    position: absolute; 
-    width: 100%;
-    height: 45vh;
-    bottom: 0;
-    background: url(../../../src/assets/wave.svg);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-  }
-   */
+ 
+
+ 
+  
   .box-benefits > svg{
     width: 65px;
     color: var(--primary);

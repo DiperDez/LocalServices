@@ -5,6 +5,7 @@
         <div class="col-12 col-md-5 bg-white rounded-1 py-2 d-flex justify-content-around">
             <router-link class="text-decoration-none text-primary" to="/administrador/estados">Estados</router-link>
             <router-link class="text-decoration-none text-primary" to="/administrador/metodoPago">Método de pago</router-link>
+            <router-link class="text-decoration-none text-primary" to="/administrador/oficio">Oficios</router-link>
             <router-link class="text-decoration-none text-primary" to="/administrador/categoriaOficio">Categoria Oficio</router-link>
         </div>
         <router-view/>

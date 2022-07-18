@@ -6,7 +6,7 @@
             
 
             <div class="col-12 input-group input-search h-auto ms-md-5 d-none d-md-flex shadow-sm">
-                 <input type="text" placeholder="Busca un servicio" class="form-control rounded-0 shadow-none ps-3">
+                 <input type="text" placeholder="Busca un servicio por su nombre o categoría..." class="form-control rounded-0 shadow-none ps-3">
                  <svg xmlns="http://www.w3.org/2000/svg" class="h-100 w-6 text-secondary search-svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>      
@@ -24,7 +24,7 @@
             <router-link class="text-decoration-none router-link router-link-white" to="/">Inicio</router-link>
             <router-link class="text-decoration-none router-link router-link-white" to="/servicios">Servicios</router-link>
             <router-link class="text-decoration-none router-link router-link-white" to="/acercaDe">Acerca de</router-link>
-            <router-link class="text-decoration-none px-3 py-1 btn btn-sm btn-primary-blue rounded-0 rounded-1 router-link router-link-white" to="/registro">Registrarse</router-link>
+            <router-link class="text-decoration-none px-3 py-1 btn btn-sm btn-primary-outline-local rounded-0 rounded-1 router-link router-link-white" to="/registro">Registrarse</router-link>
         </div>
        
     </div>
@@ -76,9 +76,9 @@ export default {
                   menuLink = document.querySelectorAll('.router-link')
 
             if(this.windowScroll >= 50){
+                
                 menu.classList.add('menu-scroll', 'shadow-sm')
                 
-
                 for(let i = 0; i < menuLink.length; i++){
                     menuLink[i].classList.remove('router-link-white') 
                     menuLink[i].classList.add('router-link-dark')
