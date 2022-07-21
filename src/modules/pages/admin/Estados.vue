@@ -65,6 +65,8 @@
 
 
 <script>
+import url from '@/main.js';
+
 export default {
     data(){
         return{
@@ -86,7 +88,7 @@ export default {
     },
     methods: {
         async leerEstados(){
-            await fetch('http://localservices.com.mx/LocalServicesAPI/api/estado.php')
+            await fetch(`${url}/estado.php`)
             .then(r => r.json())
             .then(data => {
                 this.estados = []
@@ -99,7 +101,7 @@ export default {
         },
         registrarEstado(){
             if(this.registrarDatos.nombreEstado != ''){
-              fetch('http://localservices.com.mx/LocalServicesAPI/api/estado.php?registrarEstado=1', {
+              fetch(`${url}/estado.php?registrarEstado=1`, {
                   method: "POST",
                   body: JSON.stringify(this.registrarDatos)
               }).then(r => {
@@ -133,7 +135,7 @@ export default {
         },
         editarEstado(){
           if(this.editarDatos.idEstado != null && this.editarDatos.nombreEstado != ''){
-            fetch('http://localservices.com.mx/LocalServicesAPI/api/estado.php?editarEstado=1', {
+            fetch(`${url}/estado.php?editarEstado=1`, {
                 method: "POST",
                 body: JSON.stringify(this.editarDatos)
             }).then(r => {
@@ -154,11 +156,11 @@ export default {
           // Variables
           const dataID = e.target.getAttribute('data-id')
         
-          fetch(`http://localservices.com.mx/LocalServicesAPI/api/estado.php?eliminarEstado=${dataID}`).then(r => {
+          fetch(`${url}/estado.php?eliminarEstado=${dataID}`).then(r => {
             r.json()
             if(r.statusText == 'OK'){
               location.reload()  
-              alert('Se editó correctamente')
+              alert('Se eliminó correctamente')
             } 
           })
           .catch(console.log)

@@ -63,6 +63,7 @@
 
 
 <script>
+import url from '@/main.js';
 export default {
     data(){
         return{
@@ -85,7 +86,7 @@ export default {
     methods: {
         async leerCategoria(){
 
-            await fetch('http://localservices.com.mx/LocalServicesAPI/api/categoriaOficio.php')
+            await fetch(`${url}/categoriaOficio.php`)
             .then(r => r.json())
             .then(data => {
                 
@@ -101,7 +102,7 @@ export default {
         registrarCategoria(){
           console.log(this.registrarDatos);
             if(this.registrarDatos.categoriaOficio != ''){
-                fetch('http://localservices.com.mx/LocalServicesAPI/api/categoriaOficio.php?registrarCategoria=1', {
+                fetch(`${url}/categoriaOficio.php?registrarCategoria=1`, {
                     method: "POST",
                     body: JSON.stringify(this.registrarDatos)
                 }).then(r => {
@@ -136,7 +137,7 @@ export default {
         },
         editarCategoria(){
           if(this.editarDatos.idCategoria != null && this.editarDatos.categoriaOficio != ''){
-            fetch('http://localservices.com.mx/LocalServicesAPI/api/categoriaOficio.php?editarCategoria=1', {
+            fetch(`${url}/categoriaOficio.php?editarCategoria=1`, {
                 method: "POST",
                 body: JSON.stringify(this.editarDatos)
             }).then(r => {
@@ -157,11 +158,11 @@ export default {
           // Variables
           const dataID = e.target.getAttribute('data-id')
         
-          fetch(`http://localservices.com.mx/LocalServicesAPI/api/categoriaOficio.php?eliminarCategoria=${dataID}`).then(r => {
+          fetch(`${url}/categoriaOficio.php?eliminarCategoria=${dataID}`).then(r => {
             r.json()
             if(r.statusText == 'OK'){
               location.reload()  
-              alert('Se editó correctamente')
+              alert('Se eliminó correctamente')
             } 
           })
           .catch(console.log)

@@ -2,7 +2,7 @@
   <div class="row m-0 p-0">
     <section class="col-12 section-home d-flex flex-column justify-content-start align-items-center">
       <div class="col-12 h-100 px-2 d-flex flex-column justify-content-end align-items-center flex-wrap">
-         <h1 class="display-1 text-white fw-bold text-uppercase text-center mb-5">Encuentra tu mejor opción.</h1>
+         <h1 class="display-2 text-white fw-bold text-uppercase text-center mb-5">Encuentra tu mejor opción.</h1>
       </div>
       <Search/>
     </section>

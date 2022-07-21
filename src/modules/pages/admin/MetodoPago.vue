@@ -63,6 +63,7 @@
 
 
 <script>
+import url from '@/main.js';
 export default {
     data(){
         return{
@@ -85,7 +86,7 @@ export default {
     methods: {
         async leerMetodos(){
 
-            await fetch('http://localservices.com.mx/LocalServicesAPI/api/metodoPago.php')
+            await fetch(`${url}/metodoPago.php`)
             .then(r => r.json())
             .then(data => {
                 
@@ -101,7 +102,7 @@ export default {
         },
         registrarMetodo(){
             if(this.registrarDatos.metodoPago != ''){
-                fetch('http://localservices.com.mx/LocalServicesAPI/api/metodoPago.php?registrarMetodo=1', {
+                fetch(`${url}/metodoPago.php?registrarMetodo=1`, {
                     method: "POST",
                     body: JSON.stringify(this.registrarDatos)
                 }).then(r => {
@@ -135,7 +136,7 @@ export default {
         },
         editarMetodo(){
           if(this.editarDatos.idMetodo != null && this.editarDatos.metodoPago != ''){
-            fetch('http://localservices.com.mx/LocalServicesAPI/api/metodoPago.php?editarMetodo=1', {
+            fetch(`${url}/metodoPago.php?editarMetodo=1`, {
                 method: "POST",
                 body: JSON.stringify(this.editarDatos)
             }).then(r => {
@@ -156,11 +157,11 @@ export default {
           // Variables
           const dataID = e.target.getAttribute('data-id')
         
-          fetch(`http://localservices.com.mx/LocalServicesAPI/api/metodoPago.php?eliminarMetodo=${dataID}`).then(r => {
+          fetch(`${url}/metodoPago.php?eliminarMetodo=${dataID}`).then(r => {
             r.json()
             if(r.statusText == 'OK'){
               location.reload()  
-              alert('Se editó correctamente')
+              alert('Se eliminó correctamente')
             } 
           })
           .catch(console.log)

@@ -25,7 +25,7 @@
               <div class="seccion-numero">2</div>
               <div class="seccion-numero">3</div>
             </div>
-            <div class="col-12 p-0 grupo-1">
+            <div class="col-12 p-0 grupo-1" v-if="this.indice == 0">
               <div class="col-12 mb-3">
                 <label for="">Nombre</label>
                 <input
@@ -54,6 +54,41 @@
                 />
               </div>
             </div>
+            <div class="col-12 p-0 grupo-1" v-if="this.indice == 1">
+              <div class="col-12 mb-3">
+                <label for="">Número de teléfono</label>
+                <input
+                  type="text"
+                  placeholder="Número de teléfono)"
+                  class="form-control rounded-1 shadow-none"
+                  name="nombre"
+                />
+              </div>
+              <div class="col-12 mb-3">
+                <label for="">Estado</label>
+                <select class="form-select shadow-none">
+                  <option selected disabled>Selecciona tu estado</option>
+                  <option value="Hidalgo">Hidalgo</option>
+                </select>
+              </div>
+              <div class="col-12 mb-3">
+                <label for="">Municipio</label>
+                <select class="form-select shadow-none">
+                  <option selected disabled>Selecciona tu municipio</option>
+                  <option value="Atlapexco">Atlapexco</option>
+                  <option value="Huejutla">Huejutla</option>
+                </select>
+              </div>
+              <div class="col-12 mb-3">
+                <label for="">Calle</label>
+                <select class="form-select shadow-none">
+                  <option selected disabled>Selecciona tu calle</option>
+                  <option value="Nezahualcoyotl">Nezahualcoyotl</option>
+                  <option value="Valle verde">Valle verde</option>
+                </select>
+              </div>
+            </div>
+
             <div class="col-12 mt-1 mb-3 gap-3 text-end">
              
               <button
@@ -87,15 +122,18 @@ export default {
         nombre: false,
         apellidoPaterno: false,
         apellidoMaterno: false,
-        email: false,
-        password: false,
-        direccion: false
+        telefono: false,
+        estado: false,
+        municipio: false,
+        ciudad: false
       },
       expresiones: {
         texto: /^[a-zA-ZÀ-ÿ\s]{1,40}$/,
         email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-        password: /^.{4,12}$/
-      }
+        password: /^.{4,12}$/,
+        number: /^\d+$/
+      },
+      indice: 0
     }
   },
   methods: {
@@ -112,6 +150,9 @@ export default {
           break;
           case 'apellidoMaterno':
             this.validarCampo(this.expresiones.texto, input, 'apellidoMaterno')
+          break;
+          case 'telefono':
+            this.validarCampo(this.expresiones.number, input, 'telefono')
           break;
         }
 
@@ -150,8 +191,8 @@ export default {
 
         input.value.length <= 0 
           ? error.textContent = 'Este campo es obligatorio.' 
-          : input.type == 'text' ? error.textContent = 'Solo se permite texto' : undefined  
-
+          : input.type == 'text' ? error.textContent = 'Solo se permite texto.'
+          : input.type == 'number' ? error.textContent = 'Solo se permite números.' : undefined  
 
         if(contenedorPadre.querySelectorAll('.error').length > 1){
           contenedorPadre.querySelector('.error').remove(); 
@@ -162,13 +203,12 @@ export default {
 
       if(this.datos.nombre && this.datos.apellidoPaterno && this.datos.apellidoMaterno){
         const numeroSeccion = document.querySelectorAll('.seccion-numero')
-        let indice = 0;
 
-        numeroSeccion[indice].classList.add('seccion-numero-correcto');
+        numeroSeccion[this.indice].classList.add('seccion-numero-correcto');
+        this.indice++;
         
-        if(this.datos.nombre){
-          indice++;
-          numeroSeccion[indice].classList.add('seccion-numero-correcto');
+        if(this.datos.telefono){
+          this.indice++;
         }
 
       }else{
@@ -239,7 +279,7 @@ export default {
 }
 
 .seccion-numero-correcto.seccion-numero:first-child::after{
-  width: 200%;
+  width: 110%;
   background-color: var(--primary);
   transition: all ease-out .5s;
 }
