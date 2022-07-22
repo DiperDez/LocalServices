@@ -33,6 +33,7 @@
                   placeholder="Nombre (s)"
                   class="form-control rounded-1 shadow-none"
                   name="nombre"
+                  v-model="this.datos.nombre"
                 />
               </div>
               <div class="col-12 mb-3">
@@ -42,6 +43,7 @@
                   placeholder="Apellido Paterno"
                   class="form-control rounded-1 shadow-none"
                   name="apellidoPaterno"
+                  v-model="this.datos.apellidoPaterno"
                 />
               </div>
               <div class="col-12 mb-3">
@@ -51,6 +53,7 @@
                   placeholder="Apellido Materno "
                   class="form-control rounded-1 shadow-none"
                   name="apellidoMaterno"
+                  v-model="this.datos.apellidoMaterno"
                 />
               </div>
             </div>
@@ -58,34 +61,54 @@
               <div class="col-12 mb-3">
                 <label for="">Número de teléfono</label>
                 <input
-                  type="text"
-                  placeholder="Número de teléfono)"
+                  type="number"
+                  placeholder="Número de teléfono"
                   class="form-control rounded-1 shadow-none"
-                  name="nombre"
+                  name="telefono"
                 />
               </div>
               <div class="col-12 mb-3">
                 <label for="">Estado</label>
-                <select class="form-select shadow-none">
+                <select class="form-select shadow-none" name="estado" @change="selectOption">
                   <option selected disabled>Selecciona tu estado</option>
                   <option value="Hidalgo">Hidalgo</option>
                 </select>
               </div>
               <div class="col-12 mb-3">
                 <label for="">Municipio</label>
-                <select class="form-select shadow-none">
+                <select class="form-select shadow-none" name="municipio" @change="selectOption">
                   <option selected disabled>Selecciona tu municipio</option>
                   <option value="Atlapexco">Atlapexco</option>
                   <option value="Huejutla">Huejutla</option>
                 </select>
               </div>
               <div class="col-12 mb-3">
-                <label for="">Calle</label>
-                <select class="form-select shadow-none">
-                  <option selected disabled>Selecciona tu calle</option>
-                  <option value="Nezahualcoyotl">Nezahualcoyotl</option>
-                  <option value="Valle verde">Valle verde</option>
+                <label for="">Ciudad</label>
+                <select class="form-select shadow-none" name="ciudad" @change="selectOption">
+                  <option selected disabled>Selecciona tu ciudad</option>
+                  <option value="Atlapexco">Atlapexco</option>
+                  <option value="Itzocal">Itzocal</option>
                 </select>
+              </div>
+            </div>
+            <div class="col-12 p-0 grupo-1" v-if="this.indice == 2">
+              <div class="col-12 mb-3">
+                <label for="">Correo electrónico</label>
+                <input
+                  type="email"
+                  placeholder="Correo eletrónico"
+                  class="form-control rounded-1 shadow-none"
+                  name="email"
+                />
+              </div>
+              <div class="col-12 mb-3">
+                <label for="">Contraseña</label>
+                <input
+                  type="password"
+                  placeholder="Contraseña"
+                  class="form-control rounded-1 shadow-none"
+                  name="password"
+                />
               </div>
             </div>
 
@@ -105,9 +128,6 @@
               </div>
             </div>
           </div>
-
-
-          <slot></slot>
         </form>
       </div>
     </div>
@@ -119,13 +139,13 @@ export default {
   data() {
     return {
       datos: {
-        nombre: false,
-        apellidoPaterno: false,
-        apellidoMaterno: false,
-        telefono: false,
-        estado: false,
-        municipio: false,
-        ciudad: false
+        nombre: '',
+        apellidoPaterno: '',
+        apellidoMaterno: '',
+        telefono: '',
+        estado: '',
+        municipio: '',
+        ciudad: ''
       },
       expresiones: {
         texto: /^[a-zA-ZÀ-ÿ\s]{1,40}$/,
@@ -139,80 +159,105 @@ export default {
   methods: {
     validarFormulario() {
       const inputs = document.querySelectorAll("#formRegistro input")      
+      const selects = document.querySelectorAll("#formRegistro select")      
+      
       inputs.forEach(input => {
 
         switch(input.name){
           case 'nombre':
-            this.validarCampo(this.expresiones.texto, input, 'nombre')
+            this.validarCampo(this.expresiones.texto, input)
           break;
           case 'apellidoPaterno':
-            this.validarCampo(this.expresiones.texto, input, 'apellidoPaterno')
+            this.validarCampo(this.expresiones.texto, input)
           break;
           case 'apellidoMaterno':
-            this.validarCampo(this.expresiones.texto, input, 'apellidoMaterno')
+            this.validarCampo(this.expresiones.texto, input)
           break;
           case 'telefono':
-            this.validarCampo(this.expresiones.number, input, 'telefono')
+            this.validarCampo(this.expresiones.number, input)
           break;
         }
 
       })
+
+      selects.forEach(select => {
+        this.validarTarget(select)
+      });
+
+      
     },
-    validarCampo(expresion, input, campo){
-
+    validarCampo(expresion, input){
+      
       if(expresion.test(input.value)){
+        this.validarTarget(input, 'success')
 
-        input.classList.remove('border-danger-local', 'border-2px')
-        input.classList.add('border-success-local', 'border-2px')
+        /* Validar el no permitir pasar si los datos son erroneos */
+      
+      }else{
+          this.validarTarget(input) 
+      }
+    },
+    selectOption(e){
+
+      e.target.name     == 'estado'    ? this.datos.estado    = e.target.value 
+        : e.target.name == 'municipio' ? this.datos.municipio = e.target.value
+        : e.target.name == 'ciudad'    ? this.datos.ciudad    = e.target.value
+        : this.datos[e.target.name] = ''
+
+    },
+    validarTarget(tipo, tipoClase){
+
+      if(this.datos.nombre && this.datos.apellidoPaterno && this.datos.apellidoMaterno){
         
-        input.parentElement.classList.remove('mb-1')
-        input.parentElement.classList.add('mb-3')
+          this.indice = 1
+          
+          const numeroSeccion = document.querySelectorAll('.seccion-numero')
+          numeroSeccion[0].classList.add('seccion-numero-correcto')
+          
+          if(this.datos.telefono && this.datos.estado && this.datos.municipio && this.datos.ciudad){
 
-        if(input.parentElement.querySelector('.error')){
-          input.parentElement.lastElementChild.remove()
+          this.indice = 2
+          numeroSeccion[1].classList.add('seccion-numero-correcto')
+          }
         }
 
-        this.datos[campo] = true
+      if(tipoClase == 'success'){
+
+        tipo.classList.remove('border-danger-local', 'border-2px')
+        tipo.classList.add('border-success-local', 'border-2px')
+        
+        tipo.parentElement.classList.remove('mb-1')
+        tipo.parentElement.classList.add('mb-3')
+
+        if(tipo.parentElement.querySelector('.error')){
+          tipo.parentElement.lastElementChild.remove()
+        }
 
       }else{
 
-        input.classList.remove('border-success-local', 'border-2px')
-        input.classList.add('border-danger-local', 'border-2px')
-
-        input.parentElement.classList.remove('mb-1')
-        input.parentElement.classList.add('mb-3')
+        tipo.classList.remove('border-success-local', 'border-2px')
+        tipo.classList.add('border-danger-local', 'border-2px')
+        tipo.parentElement.classList.remove('mb-1')
+        tipo.parentElement.classList.add('mb-3')
 
         const error = document.createElement('p')
         error.classList.add('text-danger', 'error')
 
-        const contenedorPadre = input.parentElement
+        const contenedorPadre = tipo.parentElement
         contenedorPadre.appendChild(error)
 
-
-        input.value.length <= 0 
-          ? error.textContent = 'Este campo es obligatorio.' 
-          : input.type == 'text' ? error.textContent = 'Solo se permite texto.'
-          : input.type == 'number' ? error.textContent = 'Solo se permite números.' : undefined  
-
         if(contenedorPadre.querySelectorAll('.error').length > 1){
-          contenedorPadre.querySelector('.error').remove(); 
+          contenedorPadre.querySelector('.error').remove()
         }
 
-        this.datos[campo] = false
-      }
-
-      if(this.datos.nombre && this.datos.apellidoPaterno && this.datos.apellidoMaterno){
-        const numeroSeccion = document.querySelectorAll('.seccion-numero')
-
-        numeroSeccion[this.indice].classList.add('seccion-numero-correcto');
-        this.indice++;
-        
-        if(this.datos.telefono){
-          this.indice++;
+        if(tipo.classList.contains('form-control')){
+          tipo.value.length <= 0 
+          ? error.textContent = 'Este campo es obligatorio.' 
+          : tipo.type == 'text' ? error.textContent = 'Solo se permite texto.' : undefined
+        }else{
+          error.textContent = 'Este campo es obligatorio.'
         }
 
-      }else{
-        console.log('Datos no completos');
       }
     },
     registrarUsuario() {
